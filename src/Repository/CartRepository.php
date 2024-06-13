@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\CartProducts;
 use App\Entity\Product;
 use App\Service\Cart\Cart;
 use App\Service\Cart\CartService;
@@ -17,8 +18,14 @@ class CartRepository implements CartService
         $cart = $this->entityManager->find(\App\Entity\Cart::class, $cartId);
         $product = $this->entityManager->find(Product::class, $productId);
 
-        if ($cart && $product && !$cart->hasProduct($product)) {
-            $cart->addProduct($product);
+        if ($cart && $product) {
+            if ($cart->hasProduct($product)) {
+                $cartProduct = $this->entityManager->getRepository(CartProducts::class)->findOneBy(['product' => $product]);
+                $cartProduct->setProductCounter($cartProduct->getProductCounter() + 1);
+            } else {
+                $cart->addProduct($product);
+            }
+
             $this->entityManager->persist($cart);
             $this->entityManager->flush();
         }
@@ -30,7 +37,13 @@ class CartRepository implements CartService
         $product = $this->entityManager->find(Product::class, $productId);
 
         if ($cart && $product && $cart->hasProduct($product)) {
-            $cart->removeProduct($product);
+            $cartProduct = $this->entityManager->getRepository(CartProducts::class)->findOneBy(['product' => $product]);
+            if ($cartProduct->getProductCounter() > 1) {
+                $cartProduct->setProductCounter($cartProduct->getProductCounter() - 1);
+            } else {
+                $cart->removeProduct($product);
+            }
+
             $this->entityManager->persist($cart);
             $this->entityManager->flush();
         }

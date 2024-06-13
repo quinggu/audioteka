@@ -12,5 +12,11 @@ interface Cart
     /**
      * @return Product[]
      */
-    public function getProducts(): iterable;
+    public function getCartProducts(): iterable;
+
+    public function hasProduct(\App\Entity\Product $product): bool;
+
+    public function addProduct(\App\Entity\Product $product): void;
+
+    public function removeProduct(\App\Entity\Product $product): void;
 }
