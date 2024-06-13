@@ -18,6 +18,7 @@ class CartBuilder
                 'id' => $cartProduct->getProduct()->getId(),
                 'name' => $cartProduct->getProduct()->getName(),
                 'price' => $cartProduct->getProduct()->getPrice(),
+                'createdAt' => $cartProduct->getProduct()->getCreatedAt()->format('Y-m-d H:i:s'),
                 'productsCount' => $cartProduct->getProductCounter()
             ];
         }

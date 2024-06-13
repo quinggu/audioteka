@@ -4,6 +4,7 @@ namespace App\Tests\Unit\ResponseBuilder;
 
 use App\Entity\Product;
 use App\ResponseBuilder\ProductListBuilder;
+use DateTime;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -40,9 +41,9 @@ class ProductListBuilderTest extends TestCase
     public function test_builds_first_page(): void
     {
         $products = [
-            new Product('25cc9f5d-7702-4cb0-b6fc-f93b049055ca', 'Product 1', 1200),
-            new Product('30e4e028-3b38-4cb9-9267-a9e515983337', 'Product 2', 1400),
-            new Product('f6635017-982f-4544-9ac5-3d57107c0f0d', 'Product 3', 1500),
+            new Product('25cc9f5d-7702-4cb0-b6fc-f93b049055ca', 'Product 1', 1200, new DateTime('2024-06-09 07:27:21')),
+            new Product('30e4e028-3b38-4cb9-9267-a9e515983337', 'Product 2', 1400, new DateTime('2024-06-09 08:36:22')),
+            new Product('f6635017-982f-4544-9ac5-3d57107c0f0d', 'Product 3', 1500, new DateTime('2024-06-09 09:40:23')),
         ];
 
         $this->assertEquals([
@@ -50,9 +51,9 @@ class ProductListBuilderTest extends TestCase
             'next_page' => 'product-list{"page":1}',
             'count' => 5,
             'products' => [
-                ['id' => '25cc9f5d-7702-4cb0-b6fc-f93b049055ca', 'name' => 'Product 1', 'price' => 1200],
-                ['id' => '30e4e028-3b38-4cb9-9267-a9e515983337', 'name' => 'Product 2', 'price' => 1400],
-                ['id' => 'f6635017-982f-4544-9ac5-3d57107c0f0d', 'name' => 'Product 3', 'price' => 1500],
+                ['id' => '25cc9f5d-7702-4cb0-b6fc-f93b049055ca', 'name' => 'Product 1', 'price' => 1200, 'createdAt' => '2024-06-09 07:27:21'],
+                ['id' => '30e4e028-3b38-4cb9-9267-a9e515983337', 'name' => 'Product 2', 'price' => 1400, 'createdAt' => '2024-06-09 08:36:22'],
+                ['id' => 'f6635017-982f-4544-9ac5-3d57107c0f0d', 'name' => 'Product 3', 'price' => 1500, 'createdAt' => '2024-06-09 09:40:23'],
             ],
         ], $this->builder->__invoke($products, 0, 3, 5));
     }
@@ -60,9 +61,9 @@ class ProductListBuilderTest extends TestCase
     public function test_builds_last_page(): void
     {
         $products = [
-            new Product('25cc9f5d-7702-4cb0-b6fc-f93b049055ca', 'Product 1', 1200),
-            new Product('30e4e028-3b38-4cb9-9267-a9e515983337', 'Product 2', 1400),
-            new Product('f6635017-982f-4544-9ac5-3d57107c0f0d', 'Product 3', 1500),
+            new Product('25cc9f5d-7702-4cb0-b6fc-f93b049055ca', 'Product 1', 1200, new DateTime('2024-06-09 07:27:21')),
+            new Product('30e4e028-3b38-4cb9-9267-a9e515983337', 'Product 2', 1400, new DateTime('2024-06-09 08:36:22')),
+            new Product('f6635017-982f-4544-9ac5-3d57107c0f0d', 'Product 3', 1500, new DateTime('2024-06-09 09:40:23')),
         ];
 
         $this->assertEquals([
@@ -70,9 +71,9 @@ class ProductListBuilderTest extends TestCase
             'next_page' => null,
             'count' => 5,
             'products' => [
-                ['id' => '25cc9f5d-7702-4cb0-b6fc-f93b049055ca', 'name' => 'Product 1', 'price' => 1200],
-                ['id' => '30e4e028-3b38-4cb9-9267-a9e515983337', 'name' => 'Product 2', 'price' => 1400],
-                ['id' => 'f6635017-982f-4544-9ac5-3d57107c0f0d', 'name' => 'Product 3', 'price' => 1500],
+                ['id' => '25cc9f5d-7702-4cb0-b6fc-f93b049055ca', 'name' => 'Product 1', 'price' => 1200, 'createdAt' => '2024-06-09 07:27:21'],
+                ['id' => '30e4e028-3b38-4cb9-9267-a9e515983337', 'name' => 'Product 2', 'price' => 1400, 'createdAt' => '2024-06-09 08:36:22'],
+                ['id' => 'f6635017-982f-4544-9ac5-3d57107c0f0d', 'name' => 'Product 3', 'price' => 1500, 'createdAt' => '2024-06-09 09:40:23'],
             ],
         ], $this->builder->__invoke($products, 1, 3, 5));
     }
@@ -80,9 +81,9 @@ class ProductListBuilderTest extends TestCase
     public function test_builds_middle_page(): void
     {
         $products = [
-            new Product('25cc9f5d-7702-4cb0-b6fc-f93b049055ca', 'Product 1', 1200),
-            new Product('30e4e028-3b38-4cb9-9267-a9e515983337', 'Product 2', 1400),
-            new Product('f6635017-982f-4544-9ac5-3d57107c0f0d', 'Product 3', 1500),
+            new Product('25cc9f5d-7702-4cb0-b6fc-f93b049055ca', 'Product 1', 1200, new DateTime('2024-06-09 07:27:21')),
+            new Product('30e4e028-3b38-4cb9-9267-a9e515983337', 'Product 2', 1400, new DateTime('2024-06-09 08:36:22')),
+            new Product('f6635017-982f-4544-9ac5-3d57107c0f0d', 'Product 3', 1500, new DateTime('2024-06-09 09:40:23')),
         ];
 
         $this->assertEquals([
@@ -90,9 +91,9 @@ class ProductListBuilderTest extends TestCase
             'next_page' => 'product-list{"page":2}',
             'count' => 7,
             'products' => [
-                ['id' => '25cc9f5d-7702-4cb0-b6fc-f93b049055ca', 'name' => 'Product 1', 'price' => 1200],
-                ['id' => '30e4e028-3b38-4cb9-9267-a9e515983337', 'name' => 'Product 2', 'price' => 1400],
-                ['id' => 'f6635017-982f-4544-9ac5-3d57107c0f0d', 'name' => 'Product 3', 'price' => 1500],
+                ['id' => '25cc9f5d-7702-4cb0-b6fc-f93b049055ca', 'name' => 'Product 1', 'price' => 1200, 'createdAt' => '2024-06-09 07:27:21'],
+                ['id' => '30e4e028-3b38-4cb9-9267-a9e515983337', 'name' => 'Product 2', 'price' => 1400, 'createdAt' => '2024-06-09 08:36:22'],
+                ['id' => 'f6635017-982f-4544-9ac5-3d57107c0f0d', 'name' => 'Product 3', 'price' => 1500, 'createdAt' => '2024-06-09 09:40:23'],
             ],
         ], $this->builder->__invoke($products, 1, 3, 7));
     }
