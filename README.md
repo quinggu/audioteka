@@ -48,3 +48,11 @@ To Twoja okazja na pokazanie umiejętności, więc jeśli uważasz, że w kodzie
 
 Powodzenia!
 
+Zadania zrobione, każde w oddzielnym commicie (createdAt na produkcie weszło commit wcześniej).
+Wszystko wydaje się działać zgodnie z założeniami.
+Niestety nie byłem w stanie wywołać testów funkcjonalnych, jest (ja miałem) jakiś problem z $metadata w WebTestCase.
+Unit testy przechodzą.
+Nie wiem też czy rozwiązania spełniają oczekiwania biznesu bo w zasadzie każde można rozwiązać na kilka sposobów :)
+W trakcie normalnego rozwiąznia dopytałbym biznes czy takie rozwiązanie jest ok czy może oczekują czego innego,
+oczywiście jeszcze kwestia dogadnia z frontem i poinformowania, że zmienia się struktura.
+
