@@ -49,6 +49,31 @@ class ProductRepository implements ProductProvider, ProductService
         return $product;
     }
 
+    public function edit(string $id, string $name = '', int $price = 0)
+    {
+        $product = $this->repository->find($id);
+
+        if ($product !== null) {
+            $product = $this->updateProductProperties($product, $name, $price);
+            $this->entityManager->persist($product);
+            $this->entityManager->flush();
+
+            return $product;
+        }
+    }
+
+    private function updateProductProperties(Product $product, string $name, int $price): Product
+    {
+        if ($name) {
+            $product->setName($name);
+        }
+        if ($price > 0) {
+            $product->setPrice($price);
+        }
+
+        return $product;
+    }
+
     public function remove(string $id): void
     {
         $product = $this->repository->find($id);
